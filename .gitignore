@@ -1,6 +1,7 @@
 /HackCodiSwitch/functions/config.json
 /hack_codi_app/lib/config.dart
-/HackCodiSwitch/eneek-67b61-firebase-adminsdk-y9acu-0dfc2c4191.json
+/HackCodiSwitch/functions/eneek-67b61-firebase-adminsdk-zlgsz-54dac904d9.json
+hack_codi_app/
 
 # Logs
 logs
@@ -105,3 +106,5 @@ lib/generated_plugin_registrant.dart
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+.DS_Store

@@ -8,7 +8,7 @@ function getInstance() {
         firebase = {}
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount),
-            databaseURL: "https://emtechpaymentplatform.firebaseio.com"
+            databaseURL: "https://eneek-67b61.firebaseio.com"
         });
         firebase.admin = admin
         firebase.db = admin.firestore()
