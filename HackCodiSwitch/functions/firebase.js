@@ -1,5 +1,5 @@
 const admin = require('firebase-admin')
-var serviceAccount = require("./emtechpaymentplatform-firebase-adminsdk-qcqnq-077cd104c4.json");
+var serviceAccount = require("./eneek-67b61-firebase-adminsdk-y9acu-0dfc2c4191.json");
 const functions = require('firebase-functions')
 var firebase
 

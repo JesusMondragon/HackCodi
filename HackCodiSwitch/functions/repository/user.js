@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 const firebase = require('../../firebase')
-const condig = require('../../config.json')
+const config = require('../config.json')
 const admin = firebase.admin
 const db = firebase.db
 
@@ -48,36 +48,12 @@ module.exports = {
 
     async signin(
         email,
-        password,
-        device_alias,
-        check_digit,
-        device_id,
-        device_os,
-        device_os_version,
-        device_manufacturer,
-        device_model,
-        project_token,
-        hmac,
-        certification_identifier,
-        timestamp,
-        hash
+        password
     ) {
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAsoN34jDSGWbvuu5UrKdJmBSqwxeZ-ztE`
     
         if(!email) throw('No email provided')
         if(!password) throw('No password provided')
-        if(!device_alias) throw('No device alias provided')
-        if(check_digit == null) throw('No check digit provided')
-        if(!device_id) throw('No device id provided')
-        if(!device_os) throw('No device os provided')
-        if(!device_os_version) throw('No device os version provided')
-        if(!device_manufacturer) throw('No device manufacturer provided')
-        if(!device_model) throw('No device model provided')
-        if(!project_token) throw('No project token provided')
-        if(!hmac) throw('No hmac provided')
-        if(!certification_identifier) throw('No certification identifier provided')
-        if(!timestamp) throw('No timestamp provided')
-        if(!hash) throw('No hash provided')
     
         let params = getParams(email, password)
         const answer = await fetch(url, params)
@@ -92,8 +68,8 @@ module.exports = {
         let user = {
             token: data.idToken,
             id: decodedToken.uid,
-            check_digit: codi_answer.dv,
-            default_check_digit: codi_answer.dvOmision,
+            check_digit: 0,
+            default_check_digit: 0,
             profile: doc.data().profile? doc.data().profile: {},
             scheme: doc.data().scheme? doc.data().scheme: {}
         }

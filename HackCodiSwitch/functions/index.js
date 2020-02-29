@@ -1,5 +1,5 @@
 const Firebase = require('./firebase')
-const User = require('./repository/emtech/user')
+const User = require('./repository/user')
 
 const functions = Firebase.functions
 const admin = Firebase.admin
@@ -83,6 +83,62 @@ exports.users = functions.https.onRequest((request, response) => {
         })
 });
 
-exports.accounts = functions.https.onRequest((request, response) => {
-    
+exports.bank_accounts = functions.https.onRequest((request, response) => {
+    switch(request.method) {
+    case 'POST':
+        executeMethod = verifyUser
+            .then((decodedToken) => BankAccount.create(decodedToken.uid))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    case 'GET':
+        executeMethod = verifyUser
+            .then((decodedToken) => BankAccount.read(decodedToken.uid))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    case 'PUT':
+        executeMethod = verifyUser
+            .then((decodedToken) => BankAccount.update(decodedToken.uid, request.body))
+            .then(() => response.status(200).send())
+        break;
+    default:
+        return response.status(404).send()
+    }
+
+    return executeMethod.catch((error) => {
+        console.log(error);
+        let code = Error.validate(error)
+        return response.status(code).send({code: 400, description: error})
+    })
+});
+
+exports.codi_accounts = functions.https.onRequest((request, response) => {
+    switch(request.method) {
+    case 'POST':
+        executeMethod = verifyUser
+            .then((decodedToken) => CodiAccount.create(decodedToken.uid))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    case 'GET':
+        executeMethod = verifyUser
+            .then((decodedToken) => CodiAccount.read(decodedToken.uid))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    case 'PUT':
+        executeMethod = verifyUser
+            .then((decodedToken) => CodiAccount.update(decodedToken.uid, request.body))
+            .then(() => response.status(200).send())
+        break;
+    default:
+        return response.status(404).send()
+    }
+
+    return executeMethod.catch((error) => {
+        console.log(error);
+        let code = Error.validate(error)
+        return response.status(code).send({code: 400, description: error})
+    })
 });
