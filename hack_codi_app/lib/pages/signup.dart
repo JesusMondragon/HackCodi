@@ -35,28 +35,6 @@ class Signup extends StatelessWidget {
             return _signupForm(context, false);
           }
 
-          if(state is ChangingTCCheckBox) {
-            return _signupForm(context, state.newValue);
-          }
-
-          if(state is DownloadingTC) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          if(state is ShowingTC) {
-            return ListView(
-              padding: EdgeInsets.all(15.0),
-              children: <Widget>[
-                Text("Terminos y Condiciones."),
-                Text(state.tc),
-                teCobroBotton(
-                  title: 'Aceptar',
-                  handler: () => _bloc.add(AcceptTCButtonPressed() )
-                ),
-              ],
-            );
-          }
-
           if(state is SendingInfo) {
             return _progressIndicatorAlert(context);
           }
@@ -116,28 +94,12 @@ class Signup extends StatelessWidget {
           enableInteractiveSelection: false,
           obscureText: true,
         ),
-        
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget> [
-            Checkbox(
-              value: tcCheckboxValue,
-              onChanged: (valor) => _bloc.add(TCCheckBoxChanged(value: valor)),
-            ),
-            Text("Aceptar"),
-            FlatButton(
-              onPressed: () => _bloc.add(TermsAndConditionsButtonPressed()),
-              child: Text(
-                "términos y condiciones",
-                style: TextStyle(decoration: TextDecoration.underline)
-              ),
-            )
-          ],
-        ),
+
+        SizedBox(height: 10.0,),
 
         teCobroBotton(
           title: 'Registrarme',
-          handler: () => _bloc.add(RegisterButtonPressed(
+          handler: () => _bloc.add(SignupButtonPressed(
             email: _emailController.text,
             password: _passwordController.text
           ))

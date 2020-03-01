@@ -18,40 +18,9 @@ class AskingContactsPermission extends SignupState { }
 
 class AskingEmailPassword extends SignupState { }
 
-class ChangingTCCheckBox extends SignupState {
-  final bool newValue;
-
-  const ChangingTCCheckBox({@required this.newValue});
-
-  @override
-  List<Object> get props => [newValue];
-
-  @override
-  String toString() => 'ChangingTCCheckBox { TCCheckBox newValue: $newValue}';
-}
-
-class DownloadingTC extends SignupState { }
-
-class ShowingTC extends SignupState {
-  final String tc;
-
-  const ShowingTC({@required this.tc});
-
-  @override
-  List<Object> get props => [tc];
-
-  @override
-  String toString() => 'SignupError { T&C: $tc }';
-
-}
-
-class AskingPhoneNumber extends SignupState { }
-
 class SendingInfo extends SignupState { }
 
 class ShowingSignupResult extends SignupState { }
-
-class AskingCodR extends SignupState { }
 
 class SignupError extends SignupState {
   final String error;

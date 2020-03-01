@@ -31,20 +31,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       yield AskingEmailPassword();
     }
 
-    if(event is TCCheckBoxChanged ) {
-      yield ChangingTCCheckBox(newValue: event.value);
-    }
-
-    if(event is TermsAndConditionsButtonPressed) {
-      yield DownloadingTC();
-
-    }
-    
-    if(event is AcceptTCButtonPressed) {
-      yield ChangingTCCheckBox(newValue: true);
-    }
-    
-    if(event is RegisterButtonPressed) {
+    if(event is SignupButtonPressed) {
       yield SendingInfo();
       
       _email = event.email;
