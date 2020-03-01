@@ -14,7 +14,7 @@ class CreateBankAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Apertura de Cuenta"),),
+      appBar: AppBar(title: Text("Apertura de Cuenta Bancaria"),),
       body: BlocBuilder<CreateBankAccountBloc, CreateBankAccountState>(
         bloc: _bloc,
         builder: (context, state) {
@@ -98,6 +98,8 @@ class CreateBankAccount extends StatelessWidget {
           enableSuggestions: false,
           enableInteractiveSelection: false,
         ),
+
+        SizedBox(height: 10),
 
         teCobroBotton(
           title: 'Crear Cuenta',
