@@ -52,6 +52,8 @@ flutter:
   assets:
    - assets/logo_te_cobro.png
    - assets/logo.jpg
+   - assets/qr_con_importe_2mxn.jpg
+   - assets/qr_sin_importe.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

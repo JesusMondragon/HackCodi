@@ -7,4 +7,18 @@ abstract class PaymentsState extends Equatable {
   List<Object> get props => [];
 }
 
-class AskingAmount extends PaymentsState { }
+class WithAmount extends PaymentsState { }
+
+class WithoutAmount extends PaymentsState { }
+
+class ChangingCheckBox extends PaymentsState {
+  final bool newValue;
+
+  const ChangingCheckBox({@required this.newValue});
+
+  @override
+  List<Object> get props => [newValue];
+
+  @override
+  String toString() => 'ChangingCheckBox { CheckBox newValue: $newValue}';
+}

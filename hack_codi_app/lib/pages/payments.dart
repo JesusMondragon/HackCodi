@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/payments/payments_bloc.dart';
-import 'package:slider_button/slider_button.dart';
 
 class Payments extends StatelessWidget {
+  final _amountController = TextEditingController();
   //ignore: close_sinks
   final PaymentsBloc _bloc = PaymentsBloc();
 
@@ -14,8 +14,14 @@ class Payments extends StatelessWidget {
       body: BlocBuilder<PaymentsBloc, PaymentsState>(
         bloc: _bloc,
         builder: (context, state) {
-          if(state is AskingAmount) {
-            return _paymentInformation(context);
+          if(state is WithoutAmount) {
+            return _paymentInformation(context, false);
+          }
+
+          print("Estado: $state");
+          if(state is ChangingCheckBox) {
+            print("XXXXX");
+            return _paymentWithAmountInformation(context, state.newValue);
           }
 
           return Container();
@@ -24,30 +30,59 @@ class Payments extends StatelessWidget {
     );
   }
 
-  Widget _paymentInformation(BuildContext context) {
+  Widget _paymentInformation(BuildContext context, bool tcCheckboxValue) {
     return Column(
       children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            Checkbox(
+              value: tcCheckboxValue,
+              onChanged: (valor) => _bloc.add(CheckBoxChanged(value: valor)),
+            ),
+            Text("Con Monto", style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0),),
+          ],
+        ),
 
-        Center(child: SliderButton(
-              action: () => { },
-              label: Text(
-                  "Sin monto",
-                  style: TextStyle(
-                      color: Color(0xff4a4a4a), fontWeight: FontWeight.w500, fontSize: 17),
-                ),
-              icon: Text(
-                "x",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 44,
-                ),
-              ),
-        )),
+        Expanded(
+          child: Image(image: AssetImage('assets/qr_sin_importe.jpg'))
+        ),
 
+        Text('Código sin monto', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0),)
       ],
     );
   }
+
+  Widget _paymentWithAmountInformation(BuildContext context, bool tcCheckboxValue) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            Checkbox(
+              value: tcCheckboxValue,
+              onChanged: (valor) => _bloc.add(CheckBoxChanged(value: valor)),
+            ),
+            Text("Con Monto", style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0),),
+          ],
+        ),
+
+        Expanded(
+          child: Image(image: AssetImage('assets/qr_con_importe_2mxn.jpg'))
+        ),
+
+        TextField(
+          decoration: InputDecoration(labelText: 'Monto'),
+          controller: _amountController,
+          autocorrect: false,
+          enableSuggestions: false,
+          enableInteractiveSelection: false,
+          keyboardType: TextInputType.number,
+        ),
+      ],
+    );
+  }
+
 
 
 }
