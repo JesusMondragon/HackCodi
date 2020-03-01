@@ -18,10 +18,13 @@ class Payments extends StatelessWidget {
             return _paymentInformation(context, false);
           }
 
-          print("Estado: $state");
           if(state is ChangingCheckBox) {
-            print("XXXXX");
-            return _paymentWithAmountInformation(context, state.newValue);
+            if(state.newValue)
+            {
+              return _paymentWithAmountInformation(context, state.newValue);
+            } else {
+              return _paymentInformation(context, false);
+            }
           }
 
           return Container();
@@ -70,9 +73,10 @@ class Payments extends StatelessWidget {
         Expanded(
           child: Image(image: AssetImage('assets/qr_con_importe_2mxn.jpg'))
         ),
+        
 
         TextField(
-          decoration: InputDecoration(labelText: 'Monto'),
+          decoration: InputDecoration(labelText: 'Monto', labelStyle: TextStyle(fontSize: 50.0)),
           controller: _amountController,
           autocorrect: false,
           enableSuggestions: false,
