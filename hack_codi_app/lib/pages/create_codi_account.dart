@@ -19,6 +19,11 @@ class CreateCodiAccount extends StatelessWidget {
             return _accountInformationForm(context);
           }
 
+          if(state is ShowingResult)
+          {
+            _codiAccountResultAlert(context);
+          }
+
           if(state is CreateCodiAccountError) {
             return Column(
               children: <Widget>[
@@ -81,5 +86,23 @@ class CreateCodiAccount extends StatelessWidget {
       ],
     );
   }
+
+    Widget _codiAccountResultAlert(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
+      title: Center(child: Text('¡Registro CoDi exitoso!')),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon( Icons.check, color: Colors.blue, size: 80.0, ),
+          teCobroBotton(
+            title: 'ACEPTAR',
+            handler: () => Navigator.pushNamed(context, '/payments')
+          ),
+        ],
+      ),
+    );
+  }
+
 
 }

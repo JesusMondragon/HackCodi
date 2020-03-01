@@ -11,6 +11,7 @@ class AskingCodiAccountInformation extends CreateCodiAccountState { }
 
 class CreatingCodiAccount extends CreateCodiAccountState { }
 
+class ShowingResult extends CreateCodiAccountState { }
 
 class CreateCodiAccountError extends CreateCodiAccountState {
   final String error;
