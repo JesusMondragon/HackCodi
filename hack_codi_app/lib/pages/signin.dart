@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/signin/signin_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class Signin extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -44,12 +45,12 @@ class Signin extends StatelessWidget {
                   child: Text('¿Olvidaste tu contraseña?')
                 ),
 
-                RaisedButton(
-                  child: Text('Continuar'),
-                  onPressed: () => _bloc.add(SigninButtonPressed(
+                teCobroBotton(
+                  title: 'Continuar',
+                  handler: () => _bloc.add(SigninButtonPressed(
                     email: _emailController.text,
                     password: _passwordController.text
-                  )),
+                  ))
                 ),
 
                 Row(
@@ -75,10 +76,10 @@ class Signin extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Text(state.error),
-                RaisedButton(
-                  child: Text('Reintentar'),
-                  onPressed: () => _bloc.add(RetryButtonPressed()),
-                )
+                teCobroBotton(
+                  title: 'Reintentar',
+                  handler: () => _bloc.add(RetryButtonPressed())
+                ),
               ],
             );
           }

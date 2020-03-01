@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/create_codi_account/create_codi_account_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class CreateCodiAccount extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
   final CreateCodiAccountBloc _bloc = CreateCodiAccountBloc();
-  final _buttonColor = Color(0xFF5130bb);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,10 @@ class CreateCodiAccount extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Text(state.error),
-                RaisedButton(
-                  child: Text('Reintentar'),
-                  onPressed: () => _bloc.add(RetryButtonPressed()),
-                )
+                teCobroBotton(
+                  title: 'Reintentar',
+                  handler: () => _bloc.add(RetryButtonPressed())
+                ),
               ],
             );
           }
@@ -58,18 +58,12 @@ class CreateCodiAccount extends StatelessWidget {
           keyboardType: TextInputType.number,
         ),
 
-        RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: _buttonColor, width: 2.0)
-          ),
-          color: Colors.white,
-          textColor: _buttonColor,
-          child: Text('Registro CoDi'),
-          onPressed: () => _bloc.add(CreateCodiAccountButtonPressed(
+        teCobroBotton(
+          title: 'Registro CoDi',
+          handler: () => _bloc.add(CreateCodiAccountButtonPressed(
             phoneNumber: _phoneNumberController.text,
             bankAccountNumber: _bankAccountNumberController.text
-          )),
+          ))
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/signup/bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class Signup extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -48,9 +49,9 @@ class Signup extends StatelessWidget {
               children: <Widget>[
                 Text("Terminos y Condiciones."),
                 Text(state.tc),
-                RaisedButton(
-                  child: Text('Aceptar'),
-                  onPressed: () => _bloc.add(AcceptTCButtonPressed() ),
+                teCobroBotton(
+                  title: 'Aceptar',
+                  handler: () => _bloc.add(AcceptTCButtonPressed() )
                 ),
               ],
             );
@@ -68,9 +69,9 @@ class Signup extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Text(state.error),
-                RaisedButton(
-                  child: Text('Reintentar'),
-                  onPressed: () => _bloc.add(RetryButtonPressed()),
+                teCobroBotton(
+                  title: 'Reintentar',
+                  handler: () => _bloc.add(RetryButtonPressed())
                 )
               ],
             );
@@ -134,12 +135,12 @@ class Signup extends StatelessWidget {
           ],
         ),
 
-        RaisedButton(
-          child: Text('Registrarme'),
-          onPressed: () => _bloc.add(RegisterButtonPressed(
+        teCobroBotton(
+          title: 'Registrarme',
+          handler: () => _bloc.add(RegisterButtonPressed(
             email: _emailController.text,
             password: _passwordController.text
-          )),
+          ))
         ),
 
         FlatButton(
@@ -264,9 +265,9 @@ class Signup extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Icon( Icons.check, color: Colors.blue, size: 80.0, ),
-          FlatButton(
-            child: Text('ACEPTAR'),
-            onPressed: () => Navigator.pushNamed(context, '/create_codi_account'),
+          teCobroBotton(
+            title: 'ACEPTAR',
+            handler: () => Navigator.pushNamed(context, '/create_codi_account')
           ),
         ],
       ),

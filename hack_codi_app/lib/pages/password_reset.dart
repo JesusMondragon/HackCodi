@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/password_reset/password_reset_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class PasswordReset extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -22,10 +23,10 @@ class PasswordReset extends StatelessWidget {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                 ),
-                RaisedButton(
-                  child: Text('Enviar'),
-                  onPressed: () => _bloc.add(SendButtonPressed(email: _emailController.text)),
-                )
+                teCobroBotton(
+                  title: 'Enviar',
+                  handler: () => _bloc.add(SendButtonPressed(email: _emailController.text))
+                ),
               ],
             );
           }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/create_bank_account/create_bank_account_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class CreateBankAccount extends StatelessWidget {
   final _nameController = TextEditingController();
@@ -29,9 +30,9 @@ class CreateBankAccount extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Text(state.error),
-                RaisedButton(
-                  child: Text('Reintentar'),
-                  onPressed: () => _bloc.add(RetryButtonPressed()),
+                teCobroBotton(
+                  title: 'Reintentar',
+                  handler: () => _bloc.add(RetryButtonPressed())
                 )
               ],
             );
@@ -91,15 +92,15 @@ class CreateBankAccount extends StatelessWidget {
           enableInteractiveSelection: false,
         ),
 
-        RaisedButton(
-          child: Text('Crear Cuenta'),
-          onPressed: () => _bloc.add(CreateBankAccountButtonPressed(
+        teCobroBotton(
+          title: 'Crear Cuenta',
+          handler: () => _bloc.add(CreateBankAccountButtonPressed(
             bank: bank,
             name: _nameController.text,
             phoneNumber: _phoneNumberController.text,
             address: _addressController.text
           )),
-        ),
+        )
       ],
     );
   }
