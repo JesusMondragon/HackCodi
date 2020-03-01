@@ -29,6 +29,10 @@ class CreateBankAccount extends StatelessWidget {
             return _accountInformationForm(context, state.bank);
           }
 
+          if(state is CreatingBankAccount) {
+              return _progressIndicatorAlert(context);
+          }
+
           if(state is ShowingResult) {
             return _bankResultAlert(context);
           }
@@ -119,6 +123,19 @@ class CreateBankAccount extends StatelessWidget {
           )),
         )
       ],
+    );
+  }
+
+  Widget _progressIndicatorAlert(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CircularProgressIndicator(),
+          Text('Procesando...')
+        ],
+      ),
     );
   }
 
