@@ -24,8 +24,8 @@ module.exports = {
         phone_number,
         clabe
     ) {
-        if(!phone_number) throw('No phone number provided')
-        if(!clabe) throw('No clabe provided')
+        if(!phone_number) throw(Error('No phone number provided'))
+        if(!clabe) throw(Error('No clabe provided'))
 
         let register_url = `${config.codi_url}/registroInicial`
         let params = {

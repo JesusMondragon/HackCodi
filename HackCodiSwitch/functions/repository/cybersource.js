@@ -9,42 +9,42 @@ var merchantId = config.merchantId;
 var merchantKeyId = config.merchantKeyId;
 var merchantSecretKey = config.merchantSecretKey;
 var payload = '{' +
-        '  \"clientReferenceInformation\": {' +
-        '    \"code\": \"TC50171_3\"' +
+        '  "clientReferenceInformation": {' +
+        '    "code": "TC50171_3"' +
         '  },' +
-        '  \"processingInformation\": {' +
-        '    \"commerceIndicator\": \"internet\"' +
+        '  "processingInformation": {' +
+        '    "commerceIndicator": "internet"' +
         '  },' +
-        '  \"orderInformation\": {' +
-        '    \"billTo\": {' +
-        '      \"firstName\": \"john\",' +
-        '      \"lastName\": \"doe\",' +
-        '      \"address1\": \"201 S. Division St.\",' +
-        '      \"postalCode\": \"48104-2201\",' +
-        '      \"locality\": \"Ann Arbor\",' +
-        '      \"administrativeArea\": \"MI\",' +
-        '      \"country\": \"US\",' +
-        '      \"phoneNumber\": \"999999999\",' +
-        '      \"email\": \"test@cybs.com\"' +
+        '  "orderInformation": {' +
+        '    "billTo": {' +
+        '      "firstName": "john",' +
+        '      "lastName": "doe",' +
+        '      "address1": "201 S. Division St.",' +
+        '      "postalCode": "48104-2201",' +
+        '      "locality": "Ann Arbor",' +
+        '      "administrativeArea": "MI",' +
+        '      "country": "US",' +
+        '      "phoneNumber": "999999999",' +
+        '      "email": "test@cybs.com"' +
         '    },' +
-        '    \"amountDetails\": {' +
-        '      \"totalAmount\": \"10\",' +
-        '      \"currency\": \"MXN\"' +
+        '    "amountDetails": {' +
+        '      "totalAmount": "10",' +
+        '      "currency": "MXN"' +
         '    }' +
         '  },' +
-        '  \"paymentInformation\": {' +
-        '    \"card\": {' +
-        '      \"expirationYear\": \"2031\",' +
-        '      \"number\": \"5555555555554444\",' +
-        '      \"securityCode\": \"123\",' +
-        '      \"expirationMonth\": \"12\",' +
-        '      \"type\": \"002\"' +
+        '  "paymentInformation": {' +
+        '    "card": {' +
+        '      "expirationYear": "2031",' +
+        '      "number": "5555555555554444",' +
+        '      "securityCode": "123",' +
+        '      "expirationMonth": "12",' +
+        '      "type": "002"' +
         '    }' +
         '  }' +
         '}';
 
 function paramToString(param) {
-	if (param == undefined || param == null) {
+	if (param === undefined || param === null) {
       return '';
     }
     if (param instanceof Date) {
@@ -56,7 +56,7 @@ function paramToString(param) {
 function normalizeParams(params) {
 	var newParams = {};
     for (var key in params) {
-      if (params.hasOwnProperty(key) && params[key] != undefined && params[key] != null) {
+      if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
         var value = params[key];
         if (Array.isArray(value)) {
           newParams[key] = value;
@@ -189,7 +189,7 @@ function processPost(callback) {
 
 	request.end(function(error, response) {
 		var data = response.body;
-		if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
+		if (data === null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
 		  // SuperAgent does not always produce a body; use the unparsed response as a fallback
 		  data = response.text;
 		}
@@ -254,7 +254,7 @@ function processGet(callback) {
 
 	request.end(function(error, response) {
 		var data = response.body;
-		if (data == null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
+		if (data === null || (typeof data === 'object' && typeof data.length === 'undefined' && !Object.keys(data).length)) {
 		  // SuperAgent does not always produce a body; use the unparsed response as a fallback
 		  data = response.text;
 		}
@@ -280,7 +280,7 @@ function standaloneHttpSignature(callback) {
 	// HTTP POST REQUEST    
 	console.log('\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request');
 	processPost(function (error, data, response, statusCode) {
-		if (statusCode == 0) {
+		if (statusCode === 0) {
 			console.log("\nSTATUS : SUCCESS (HTTP Status = " + statusCode + ")");
 		}
 		else {

@@ -19,9 +19,9 @@ function getParams(email, password) {
 
 module.exports = {
     async create(userId, name, lastname, phoneNumber, provider) {
-        if(provider == 'HSBC') {
+        if(provider === 'HSBC') {
             let accountResult = await hsbcClient.create(name, lastname, phoneNumber)
-            if(!accountResult.account_id) throw ('User not created')
+            if(!accountResult.account_id) throw (Error('User not created'))
             console.log(accountResult)
             let bank_account = await db.collection(`users/${userId}/bank_accounts`).add({
                 account_id: accountResult.account_id,
@@ -37,7 +37,7 @@ module.exports = {
             
             let accountResult = await genteraClient.create(name, lastname, phoneNumber)
 
-            if(!accountResult) throw ('No provider')
+            if(!accountResult) throw (Error('No provider'))
 
             console.log(accountResult)
 

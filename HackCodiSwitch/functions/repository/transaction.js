@@ -23,13 +23,10 @@ module.exports = {
         const answer = await fetch(url, params)
         const data = await answer.json()
         if (data.error) {
-            throw ({
-                code: data.error.code,
-                message: data.error.message
-            })
+            throw new Error(data.error.message)
         }
 
-        if(data.code != '00') throw('Bad bank service answer')
+        if(data.code !== '00') throw new Error('Bad bank service answer')
 
         return data.data
     },
@@ -43,8 +40,8 @@ module.exports = {
         const answer = await fetch(url, params)
         const data = await answer.json()
     
-        if (data.error) throw (data.error)
+        if (data.error) throw new Error(data.error)
 
-        if(!data.accessToken) throw ('Error token')
+        if(!data.accessToken) throw new Error('Error token')
     }
 }

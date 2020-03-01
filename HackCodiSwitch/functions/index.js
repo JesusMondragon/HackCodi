@@ -25,14 +25,14 @@ exports.users = functions.https.onRequest((request, response) => {
     
     switch (request.path) {
     case '/signin':
-        if(request.method != 'POST') return response.status(404).send()
+        if(request.method !== 'POST') return response.status(404).send()
 
         executeMethod = User.signin(request.body.email, request.body.password)
             .then((user) => response.status(200).send(user))
         
         break
     case '/signup':
-        if(request.method != 'POST') return response.status(404).send()
+        if(request.method !== 'POST') return response.status(404).send()
         executeMethod = User.signup(request.body.email, request.body.password)
             .then((token) => response.status(200).send(token))
         break;
@@ -142,7 +142,7 @@ exports.charges = functions.https.onRequest((request, response) => {
     if(!request.headers.auth) return response.status(403).send()
     let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
 
-    if(request.method != 'POST') return response.status(404).send()
+    if(request.method !== 'POST') return response.status(404).send()
 
     switch(request.path) {
     case '/generate':
@@ -182,7 +182,7 @@ exports.payments = functions.https.onRequest((request, response) => {
     if(!request.headers.auth) return response.status(403).send()
     let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
 
-    if(request.method != 'POST') return response.status(404).send()
+    if(request.method !== 'POST') return response.status(404).send()
 
     switch(request.method) {
     case 'POST':

@@ -7,9 +7,9 @@ const db = firebase.db
 
 module.exports = {
     async create(name, lastname, phoneNumber) {
-        if(!name) throw('No name provided')
-        if(!lastname) throw('No lastname provided')
-        if(!phoneNumber) throw('No phone number provided')
+        if(!name) throw new Error(Error('No name provided'))
+        if(!lastname) throw new Error(Error('No lastname provided'))
+        if(!phoneNumber) throw new Error(Error('No phone number provided'))
 
         let url = `${config.hsbc_url}/hsbc.02.hk.hsbc/accounts`
         let params = {
@@ -46,10 +46,7 @@ module.exports = {
         const answer = await fetch(url, params)
         const data = await answer.json()
         if (data.error) {
-            throw ({
-                code: data.error.code,
-                message: data.error.message
-            })
+            throw new Error(data.error.message)
         }
 
         return data
@@ -68,7 +65,7 @@ module.exports = {
     
         const data = await answer.json()
     
-        if (data.error) throw (data.error)
+        if (data.error) throw new Error(data.error)
     
 
         return data
@@ -87,13 +84,10 @@ module.exports = {
         const answer = await fetch(url, params)
         const data = await answer.json()
         if (data.error) {
-            throw ({
-                code: data.error.code,
-                message: data.error.message
-            })
+            throw new Error(data.error.message)
         }
 
-        if(data.code != '00') throw('Bad bank service answer')
+        if(data.code !== '00') throw new Error(Error('Bad bank service answer'))
 
         return data.data
     }

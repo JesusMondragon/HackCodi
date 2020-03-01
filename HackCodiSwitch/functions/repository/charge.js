@@ -31,13 +31,15 @@ let amount_qr = {
 
 module.exports = {
     async generate(amount, concept, reference, mode) {
-        if(mode === 'string') return amount? amount_qr: amountless_qr
-        
-        
+        if(mode === 'string') 
+            if(amount)
+                return amount_qr
+            
+        return amountless_qr
     },
 
     async send(amount, concept, reference) {
 
-
+        return true
     }
 } 

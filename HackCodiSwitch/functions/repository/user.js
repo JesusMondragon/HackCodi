@@ -20,18 +20,15 @@ function getParams(email, password) {
 
 module.exports = {
     async signup(email, password) {
-        if(!email) throw('No email provided')
-        if(!password) throw('No password provided')
+        if(!email) throw new Error('No email provided')
+        if(!password) throw new Error('No password provided')
 
         let emtech_url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.g_key}`
         let params = getParams(email, password)
         const answer = await fetch(emtech_url, params)
         const data = await answer.json()
         if (data.error) {
-            throw ({
-                code: data.error.code,
-                message: data.error.message
-            })
+            throw new Error(data.error.message)
         }
 
         let user = await db.doc(`users/${data.localId}`).set({
@@ -49,8 +46,8 @@ module.exports = {
     async signin(email, password) {
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.g_key}`
     
-        if(!email) throw('No email provided')
-        if(!password) throw('No password provided')
+        if(!email) throw new Error('No email provided')
+        if(!password) throw new Error('No password provided')
     
         let params = getParams(email, password)
         const answer = await fetch(url, params)

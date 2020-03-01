@@ -6,7 +6,7 @@ const db = firebase.db
 
 
 function getBody(name, lastname, phoneNumber, folio) {
-    return {
+    return  {
         "UUID":"61bb1f5e-7cc6-4b15-a2ef-dfb454ba373d",
         "Identifiers":{
            "ServiceOfficeID":"2987",
@@ -17,8 +17,8 @@ function getBody(name, lastname, phoneNumber, folio) {
            "NameData":{
               "GivenName": name,
               "MiddleName": lastname,
-              "FamilyName":"",
-              "AditionalFamilyName":""
+              "FamilyName":"Gonzalez",
+              "AditionalFamilyName":"Herrera"
            },
            "BirthDate":"1995-05-15",
            "Gender":"0",
@@ -57,7 +57,8 @@ function getParams(body) {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
-            'X-API-KEY': 'OA6BLGKP3psAdqiMEA8s6bt8x4vlyRZZ'
+            'X-API-KEY': 'OA6BLGKP3psAdqiMEA8s6bt8x4vlyRZZ',
+            'Authorization': 'Bearer nvCKrTetqeAxFLPhXe7ioxlSCSDd' 
         },
         body: JSON.stringify(body)
     }
@@ -65,32 +66,39 @@ function getParams(body) {
 
 module.exports = {
     async create(name, lastname, phoneNumber) {
-        if(!name) throw('No name provided')
-        if(!lastname) throw('No lastname provided')
-        if(!phoneNumber) throw('No phone number provided')
+        if(!name) throw new Error('No name provided')
+        if(!lastname) throw new Error('No lastname provided')
+        if(!phoneNumber) throw new Error('No phone number provided')
 
         let url = `${config.gentera_url}/account/businesspartners/level2account`
-        //let params = getParams(email, password)
         let folios = await db.collection(`folios`).get()
 
         let availableFolio = null
-        folios.forEach(folio => availableFolio = folio.data().enabled? folio: null)
+        folios.forEach(folio => availableFolio = folio.data().enabled? folio.id: availableFolio)
         
         if(availableFolio)
-            console.log(availableFolio.id, availableFolio.data());
+            console.log(availableFolio);
         else 
-            throw ('No more folios')
+            throw new Error('No more folios')
 
         let body = getBody(name, lastname, phoneNumber, availableFolio)
+        console.log(body);
         
-        const answer = await fetch(emtech_url, params)
+        let params = getParams(body)
+        console.log(params);
+        
+        const answer = await fetch(url, params)
+
+        console.log(answer)
         const data = await answer.json()
+        console.log(data)
         if (data.error) {
-            throw ({
-                code: data.error.code,
-                message: data.error.message
-            })
+            throw new Error(ata.error.message)
         }
+
+        await db.doc(`folios/${availableFolio}`).update({enabled: false})
+
+        
 
         /*let data = {
             MessageHeader: {
@@ -120,7 +128,7 @@ module.exports = {
             }
         }
 */
-        if(data.Log.BusinessDocumentProcessingResultCode != 3) throw('Bad bank service answer')
+        if(data.Log.BusinessDocumentProcessingResultCode !== 3) throw new Error('Bad bank service answer')
 
         return data
     },
@@ -129,8 +137,8 @@ module.exports = {
     ) {
         let url = `${config.gentera_url}/account/businesspartners/level2account`
     
-        if(!email) throw('No email provided')
-        if(!password) throw('No password provided')
+        if(!email) throw new Error('No email provided')
+        if(!password) throw new Error('No password provided')
     
         let params = getParams(email, password)
         const answer = await fetch(url, params)
@@ -168,7 +176,7 @@ module.exports = {
     
         if (data.error) throw (data.error)
 
-        if(!data.accessToken) throw ('Error token')
+        if(!data.accessToken) throw new Error('Error token')
     },
 
     async getTransactions() {
@@ -185,13 +193,13 @@ module.exports = {
         const answer = await fetch(url, params)
         const data = await answer.json()
         if (data.error) {
-            throw ({
+            throw new Error({
                 code: data.error.code,
                 message: data.error.message
             })
         }
 
-        if(data.code != '00') throw('Bad bank service answer')
+        if(data.code !== '00') throw new Error('Bad bank service answer')
 
         return data.data
     }
