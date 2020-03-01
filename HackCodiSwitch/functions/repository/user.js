@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const firebase = require('../../firebase')
+const firebase = require('../firebase')
 const config = require('../config.json')
 const admin = firebase.admin
 const db = firebase.db
@@ -46,11 +46,8 @@ module.exports = {
         }
     },
 
-    async signin(
-        email,
-        password
-    ) {
-        let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAsoN34jDSGWbvuu5UrKdJmBSqwxeZ-ztE`
+    async signin(email, password) {
+        let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.g_key}`
     
         if(!email) throw('No email provided')
         if(!password) throw('No password provided')
@@ -63,17 +60,11 @@ module.exports = {
         if (data.error) throw (data.error)
     
         const decodedToken = await admin.auth().verifyIdToken(data.idToken)
-        const doc = await db.doc(`users/${decodedToken.uid}`).get()
         
-        let user = {
+        return user = {
             token: data.idToken,
-            id: decodedToken.uid,
-            check_digit: 0,
-            default_check_digit: 0,
-            profile: doc.data().profile? doc.data().profile: {},
-            scheme: doc.data().scheme? doc.data().scheme: {}
+            id: decodedToken.uid
         }
-        return user
     },
 
     get: (userId) => db.doc(`users/${userId}`).get().then((doc) => doc.profile),

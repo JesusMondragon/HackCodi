@@ -1,5 +1,9 @@
 const Firebase = require('./firebase')
 const User = require('./repository/user')
+const BankAccount = require('./repository/bank_account')
+const CodiAccount = require('./repository/codi_account')
+const CyberSourcePayments = require('./repository/cybersource')
+const Charge = require('./repository/charge')
 
 const functions = Firebase.functions
 const admin = Firebase.admin
@@ -23,36 +27,18 @@ exports.users = functions.https.onRequest((request, response) => {
     case '/signin':
         if(request.method != 'POST') return response.status(404).send()
 
-        executeMethod = User.signin(
-            request.body.email,
-            request.body.password,
-            request.body.device_alias,
-            request.body.check_digit,
-            request.body.device_id,
-            request.body.device_os,
-            request.body.device_os_version,
-            request.body.device_manufacturer,
-            request.body.device_model,
-            request.body.project_token,
-            request.body.hmac,
-            request.body.certification_identifier,
-            parseInt(request.body.timestamp),
-            request.body.hash
-        )
-        .then((user) => response.status(200).send(user))
+        executeMethod = User.signin(request.body.email, request.body.password)
+            .then((user) => response.status(200).send(user))
         
         break
     case '/signup':
         if(request.method != 'POST') return response.status(404).send()
-        executeMethod = User.signup(
-            request.body.email,
-            request.body.password
-        )
+        executeMethod = User.signup(request.body.email, request.body.password)
             .then((token) => response.status(200).send(token))
         break;
     case '': {
             if(!request.headers.auth) return response.status(403).send()
-            let verifyUser = _Firebase.admin.auth().verifyIdToken(request.headers.auth)
+            let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
         
             switch(request.method) {
             case 'GET':
@@ -78,29 +64,35 @@ exports.users = functions.https.onRequest((request, response) => {
     return executeMethod
         .catch((error) => {
             console.log(error);
-            let code = Error.validate(error)
-            return response.status(code).send({code: 400, description: error})
+            return response.status(400).send({code: 400, description: 'wrong parameters'})
         })
 });
 
 exports.bank_accounts = functions.https.onRequest((request, response) => {
+    if(!request.headers.auth) return response.status(403).send()
+    let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
+        
     switch(request.method) {
     case 'POST':
         executeMethod = verifyUser
-            .then((decodedToken) => BankAccount.create(decodedToken.uid))
+            .then((decodedToken) => BankAccount.create(
+                decodedToken.uid,
+                request.body.name,
+                request.body.lastname,
+                request.body.phone_number,
+                request.body.provider
+            ))
             .then((user) => response.status(200).send(user))
 
         break;
     case 'GET':
         executeMethod = verifyUser
-            .then((decodedToken) => BankAccount.read(decodedToken.uid))
+            .then((decodedToken) => BankAccount.read(
+                decodedToken.uid,
+                request.body.account_id
+            ))
             .then((user) => response.status(200).send(user))
 
-        break;
-    case 'PUT':
-        executeMethod = verifyUser
-            .then((decodedToken) => BankAccount.update(decodedToken.uid, request.body))
-            .then(() => response.status(200).send())
         break;
     default:
         return response.status(404).send()
@@ -108,29 +100,32 @@ exports.bank_accounts = functions.https.onRequest((request, response) => {
 
     return executeMethod.catch((error) => {
         console.log(error);
-        let code = Error.validate(error)
-        return response.status(code).send({code: 400, description: error})
+        return response.status(400).send()
     })
 });
 
 exports.codi_accounts = functions.https.onRequest((request, response) => {
+    if(!request.headers.auth) return response.status(403).send()
+    let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
     switch(request.method) {
     case 'POST':
         executeMethod = verifyUser
-            .then((decodedToken) => CodiAccount.create(decodedToken.uid))
+            .then((decodedToken) => CodiAccount.create(
+                decodedToken.uid,
+                request.body.phone_number,
+                request.body.clabe
+            ))
             .then((user) => response.status(200).send(user))
 
         break;
     case 'GET':
         executeMethod = verifyUser
-            .then((decodedToken) => CodiAccount.read(decodedToken.uid))
+            .then((decodedToken) => CodiAccount.read(
+                decodedToken.uid,
+                request.body.account_id
+            ))
             .then((user) => response.status(200).send(user))
 
-        break;
-    case 'PUT':
-        executeMethod = verifyUser
-            .then((decodedToken) => CodiAccount.update(decodedToken.uid, request.body))
-            .then(() => response.status(200).send())
         break;
     default:
         return response.status(404).send()
@@ -138,7 +133,72 @@ exports.codi_accounts = functions.https.onRequest((request, response) => {
 
     return executeMethod.catch((error) => {
         console.log(error);
-        let code = Error.validate(error)
-        return response.status(code).send({code: 400, description: error})
+        return response.status(400).send()
     })
 });
+
+exports.charges = functions.https.onRequest((request, response) => {
+    if(!request.headers.auth) return response.status(403).send()
+    let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
+
+    if(request.method != 'POST') return response.status(404).send()
+
+    switch(request.path) {
+    case '/generate':
+        executeMethod = verifyUser
+            .then((decodedToken) => Charge.generate(
+                decodedToken.uid,
+                request.body.amoun,
+                request.body.concept,
+                request.body.reference,
+                request.body.mode
+            ))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    case '/send':
+        executeMethod = verifyUser
+            .then((decodedToken) => CodiAccount.read(
+                decodedToken.uid,
+                request.body.amoun,
+                request.body.concept,
+                request.body.reference,
+            ))
+            .then((user) => response.status(200).send(user))
+
+        break;
+    default:
+        return response.status(404).send()
+    }
+
+    return executeMethod.catch((error) => {
+        console.log(error);
+        return response.status(400).send()
+    })
+});
+
+exports.payments = functions.https.onRequest((request, response) => {
+    if(!request.headers.auth) return response.status(403).send()
+    let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
+
+    if(request.method != 'POST') return response.status(404).send()
+
+    switch(request.method) {
+    case 'POST':
+        executeMethod = verifyUser
+            .then((decodedToken) => CyberSourcePayments.standaloneHttpSignature((result) => {
+                return response.status(200).send(result)
+            }))
+
+        break;
+    default:
+        return response.status(404).send()
+    }
+
+    return executeMethod.catch((error) => {
+        console.log(error);
+        return response.status(400).send()
+    })
+})
+
+

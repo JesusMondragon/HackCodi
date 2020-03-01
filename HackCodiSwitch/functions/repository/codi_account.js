@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
-const firebase = require('../../firebase')
-const config = require('../../config.json')
+const firebase = require('../firebase')
+const config = require('../config.json')
 const admin = firebase.admin
 const db = firebase.db
 
@@ -21,18 +21,21 @@ function getParams(email, password) {
 module.exports = {
     async create(
         userId,
-        phone_number
+        phone_number,
+        clabe
     ) {
         if(!phone_number) throw('No phone number provided')
+        if(!clabe) throw('No clabe provided')
 
-        let register_url = `${config.codi_url}/register`
+        let register_url = `${config.codi_url}/registroInicial`
         let params = {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify( {
-                phone_number: phone_number
+                phone_number: phone_number,
+                clabe: clabe
             } )
         }
 
@@ -46,10 +49,10 @@ module.exports = {
             })
         }*/
         const codi_account_data = {
-            id: "adfdsafwqfw"
+            id:  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
         }
 
-        let codi_account = await db.collection(`users/${userId}/codi_accounts`).set({
+        let codi_account = await db.collection(`users/${userId}/codi_accounts`).add({
             id: codi_account_data.id,
             phone_number: phone_number
         })
@@ -65,9 +68,5 @@ module.exports = {
         } else {
             return db.collection(`users/${userId}/codi_accounts`).get()
         }
-    },
-
-    update: (userId, account_id, data) => db.doc(`users/${userId}/codi_accounts/${account_id}`).update({info: data}),
-
-    delete: (userId, account_id) => db.doc(`users/${userId}/codi_accounts/${account_id}`).get().update({enabled: false})
+    }
 }
