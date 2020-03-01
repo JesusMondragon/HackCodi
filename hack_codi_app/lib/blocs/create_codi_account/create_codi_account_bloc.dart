@@ -12,8 +12,8 @@ part 'create_codi_account_state.dart';
 
 
 class CreateCodiAccountBloc extends Bloc<CreateCodiAccountEvent, CreateCodiAccountState> {
-  String _phoneNumber = '';
-  String _clabe = '';
+  String _phoneNumber;
+  String _clabe;
   String _token;
   final teCobroClient = TeCobroClient();
   

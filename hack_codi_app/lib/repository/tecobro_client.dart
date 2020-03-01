@@ -77,4 +77,27 @@ class TeCobroClient {
     return CreateCodiAccountResponse.fromJson(responseJson);
   }
 
+  Future<CreateBankAccountResponse> createBankAccount(CreateBankAccountRequest request, String token) async {
+    http.Response responseRaw;
+
+    try {
+      responseRaw = await httpClient.post(
+        Uri.parse("$baseUrl/users/signin"),
+        body: jsonEncode(request.toJson()),
+        headers: {"auth": token}
+      );
+    } catch (error) {
+      throw 'Connection refused';
+    }
+
+    final responseJson = json.decode(responseRaw.body);
+
+    if(responseRaw.statusCode < 200 || responseRaw.statusCode >= 300) {
+      throw json.decode(responseRaw.body);
+    }
+
+    return CreateBankAccountResponse.fromJson(responseJson);
+  }
+
+
 }

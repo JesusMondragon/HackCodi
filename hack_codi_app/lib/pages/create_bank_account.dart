@@ -8,8 +8,10 @@ class CreateBankAccount extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
   final _addressController = TextEditingController();
   final CreateBankAccountBloc _bloc = CreateBankAccountBloc();
-
   final List<String> _banks = ['Eligir Banco', 'Compartamos Banco', 'HSBC'];
+  final String token;
+
+  CreateBankAccount({Key key, @required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +109,8 @@ class CreateBankAccount extends StatelessWidget {
             bank: bank,
             name: _nameController.text,
             phoneNumber: _phoneNumberController.text,
-            address: _addressController.text
+            address: _addressController.text,
+            token: token,
           )),
         )
       ],

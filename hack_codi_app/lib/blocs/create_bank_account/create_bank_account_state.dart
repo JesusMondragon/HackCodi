@@ -23,6 +23,8 @@ class ChoosingBank extends CreateBankAccountState {
   String toString() => 'ChoosingBank { choosenBank: $bank}';
 }
 
+class ShowingResult extends CreateBankAccountState { }
+
 class CreateBankAccountError extends CreateBankAccountState {
   final String error;
 

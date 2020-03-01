@@ -33,7 +33,7 @@ class App extends StatelessWidget {
         '/password_reset': (context) => PasswordReset(),
         '/signup': (context) => Signup(),
         '/create_codi_account': (context) => CreateCodiAccount(token: '',),
-        '/create_bank_account':(context) => CreateBankAccount(),
+        '/create_bank_account':(context) => CreateBankAccount(token: '',),
         '/payments':(context) => Payments(),
       },
       theme: ThemeData(

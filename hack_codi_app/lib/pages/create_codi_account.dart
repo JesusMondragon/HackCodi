@@ -86,7 +86,12 @@ class CreateCodiAccount extends StatelessWidget {
 
         teCobroBotton(
           title: 'Crear Cuenta Bancaria',
-          handler: () => Navigator.pushNamed(context, '/create_bank_account')
+          handler: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreateCodiAccount(token: token)
+            )
+          ),
         ),
         
         Center(
