@@ -9,7 +9,7 @@ class CreateBankAccount extends StatelessWidget {
   final _addressController = TextEditingController();
   final CreateBankAccountBloc _bloc = CreateBankAccountBloc();
 
-  final List<String> _banks = ['Elijir Banco', 'Compartamos Banco', 'HSBC'];
+  final List<String> _banks = ['Eligir Banco', 'Compartamos Banco', 'HSBC'];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CreateBankAccount extends StatelessWidget {
         bloc: _bloc,
         builder: (context, state) {
           if(state is AskingBankAccountInformation) {
-            return _accountInformationForm(context, 'Elijir Banco');
+            return _accountInformationForm(context, 'Eligir Banco');
           }
 
           if(state is ChoosingBank) {
@@ -59,13 +59,19 @@ class CreateBankAccount extends StatelessWidget {
   Widget _accountInformationForm(BuildContext context, String bank) {
     return Column(
       children: <Widget>[
-        Container(
-          alignment: Alignment.topLeft,
-          child: DropdownButton(
-            value: bank,
-            items: getOptionsDropdown(),
-            onChanged: (valor) => _bloc.add(BankChoosen(bank: valor)),
-          ),
+        Row(
+          children: <Widget>[
+            Text('Banco:'),
+            SizedBox(width: 10),
+            Container(
+              alignment: Alignment.topLeft,
+              child: DropdownButton(
+                value: bank,
+                items: getOptionsDropdown(),
+                onChanged: (valor) => _bloc.add(BankChoosen(bank: valor)),
+              ),
+            ),
+          ],
         ),
 
         TextField(
@@ -82,6 +88,7 @@ class CreateBankAccount extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           enableInteractiveSelection: false,
+          keyboardType: TextInputType.phone,
         ),
 
         TextField(

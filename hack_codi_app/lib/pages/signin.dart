@@ -29,6 +29,7 @@ class Signin extends StatelessWidget {
                   autocorrect: false,
                   enableSuggestions: false,
                   enableInteractiveSelection: false,
+                  keyboardType: TextInputType.emailAddress,
                 ),
 
                 TextField(
