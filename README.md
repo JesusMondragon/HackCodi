@@ -29,5 +29,5 @@ Aplicación móvil: Se desarrolló para iOS y Android utilizando la herramienta 
 # La seguridad
 La seguridad del sistema esta sustentada en HTTPS y token de inicio de sesión provisto por Google Cloud asi como respetando las indicaciones de los proovedores de las API's consumidas.
 
-El sistema en el repositorio está organizado en dos branch llamadas switch_dev y app_dev para la plataforma y para la aplicación respectivamente.
+El sistema en el repositorio está organizado en dos branch llamadas **switch_dev** y **app_dev** para la plataforma y para la aplicación respectivamente.
 
