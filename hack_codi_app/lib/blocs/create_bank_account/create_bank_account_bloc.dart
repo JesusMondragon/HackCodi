@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-part 'create_account_event.dart';
-part 'create_account_state.dart';
+part 'create_bank_account_event.dart';
+part 'create_bank_account_state.dart';
 
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
@@ -17,6 +17,11 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
     if(event is RetryButtonPressed) {
       yield AskingAccountInformation();
+    }
+
+    if(event is BankChoosen) {
+      yield ChoosingBank(bank: event.bank);
+
     }
 
     if(event is CreateAccountButtonPressed) {

@@ -136,7 +136,6 @@ class Signup extends StatelessWidget {
 
         RaisedButton(
           child: Text('Registrarme'),
-          padding: EdgeInsets.symmetric(horizontal: 150.0),
           onPressed: () => _bloc.add(RegisterButtonPressed(
             email: _emailController.text,
             password: _passwordController.text

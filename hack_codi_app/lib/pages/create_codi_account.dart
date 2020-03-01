@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hack_codi_app/blocs/create_account/create_account_bloc.dart';
+import 'package:hack_codi_app/blocs/create_codi_account/create_codi_account_bloc.dart';
 
-class CreateAccount extends StatelessWidget {
+class CreateCodiAccount extends StatelessWidget {
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _addressController = TextEditingController();
-  final CreateAccountBloc _bloc = CreateAccountBloc();
+  final CreateCodiAccountBloc _bloc = CreateCodiAccountBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Apertura Cuenta"),),
-      body: BlocBuilder<CreateAccountBloc, CreateAccountState>(
+      appBar: AppBar(title: Text("Apertura de Cuenta CoDi"),),
+      body: BlocBuilder<CreateCodiAccountBloc, CreateCodiAccountState>(
         bloc: _bloc,
         builder: (context, state) {
-          if(state is AskingAccountInformation) {
-            return _accountInformationForm(context, false);
+          if(state is AskingCodiAccountInformation) {
+            return _accountInformationForm(context, 'Elijir Banco');
           }
 
-          if(state is CreateAccountError) {
+          if(state is CreateCodiAccountError) {
             return Column(
               children: <Widget>[
                 Text(state.error),
@@ -37,8 +37,7 @@ class CreateAccount extends StatelessWidget {
     );
   }
 
-
-  Widget _accountInformationForm(BuildContext context, bool tcCheckboxValue) {
+  Widget _accountInformationForm(BuildContext context, String bank) {
     return Column(
       children: <Widget>[
         TextField(
@@ -67,8 +66,8 @@ class CreateAccount extends StatelessWidget {
 
         RaisedButton(
           child: Text('Crear Cuenta'),
-          padding: EdgeInsets.symmetric(horizontal: 150.0),
-          onPressed: () => _bloc.add(CreateAccountButtonPressed(
+          onPressed: () => _bloc.add(CreateCodiAccountButtonPressed(
+            bank: bank,
             name: _nameController.text,
             phoneNumber: _phoneNumberController.text,
             address: _addressController.text

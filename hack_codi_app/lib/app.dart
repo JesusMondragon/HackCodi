@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/create_account.dart';
+import 'pages/create_bank_account.dart';
 import 'pages/password_reset.dart';
 import 'pages/signin.dart';
 import 'pages/signup.dart';
@@ -19,7 +19,7 @@ Map<int, Color> color =
 };
 
 class App extends StatelessWidget {
-  Color mainColor = Color(0xffb74093);
+  final Color mainColor = Color(0xffb74093);
 
   @override
   Widget build(BuildContext context) {
