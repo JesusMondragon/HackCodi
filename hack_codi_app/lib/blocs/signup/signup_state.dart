@@ -8,14 +8,6 @@ abstract class SignupState extends Equatable {
   List<Object> get props => [];
 }
 
-class AskingCameraPermission extends SignupState { }
-
-class AskingImagesPermission extends SignupState { }
-
-class AskingLocationPermission extends SignupState { }
-
-class AskingContactsPermission extends SignupState { }
-
 class AskingEmailPassword extends SignupState { }
 
 class SendingInfo extends SignupState { }

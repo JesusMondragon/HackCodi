@@ -19,6 +19,10 @@ class CreateCodiAccount extends StatelessWidget {
             return _accountInformationForm(context);
           }
 
+          if(state is CreatingCodiAccount) {
+            return _progressIndicatorAlert(context);
+          }
+
           if(state is ShowingResult)
           {
             _codiAccountResultAlert(context);
@@ -87,7 +91,20 @@ class CreateCodiAccount extends StatelessWidget {
     );
   }
 
-    Widget _codiAccountResultAlert(BuildContext context) {
+    Widget _progressIndicatorAlert(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CircularProgressIndicator(),
+          Text('Registrando...')
+        ],
+      ),
+    );
+  }
+
+  Widget _codiAccountResultAlert(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
       title: Center(child: Text('¡Registro CoDi exitoso!')),

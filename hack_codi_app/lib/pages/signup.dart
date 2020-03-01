@@ -15,22 +15,6 @@ class Signup extends StatelessWidget {
       body: BlocBuilder<SignupBloc, SignupState>(
         bloc: _bloc,
         builder: (context, state) {
-          if(state is AskingCameraPermission) {
-            return _cameraPermissionAlert(context);
-          }
-
-          if(state is AskingImagesPermission) {
-            return _imagesPermissionAlert(context);
-          }
-
-          if(state is AskingLocationPermission) {
-            return _locationPermissionAlert(context);
-          }
-
-          if(state is AskingContactsPermission) {
-            return _contactsPermissionAlert(context);
-          }
-
           if(state is AskingEmailPassword) {
             return _signupForm(context, false);
           }
@@ -113,99 +97,7 @@ class Signup extends StatelessWidget {
       ],
     );
   }
-
-  Widget _cameraPermissionAlert(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
-      title: Text('Permiso para acceder a la cámara'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text('Se debe tener acceso a la cámara para poder leer códigos QR')
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          child: Text('RECHAZAR'),
-          onPressed: () => _bloc.add( RejectCameraButtonPressed() ),
-        ),
-        FlatButton(
-          child: Text('PERMITIR'),
-          onPressed: () => _bloc.add( AcceptCameraButtonPressed() ),
-        ),
-      ],
-    );
-  }
-
-  Widget _imagesPermissionAlert(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
-      title: Text('Permiso para acceder a imágenes'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text('Se debe tener acceso a las imágenes para poder almacenar códigos QR')
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          child: Text('RECHAZAR'),
-          onPressed: () => _bloc.add( RejectImagesButtonPressed() ),
-        ),
-        FlatButton(
-          child: Text('PERMITIR'),
-          onPressed: () => _bloc.add( AcceptImagesButtonPressed() ),
-        ),
-      ],
-    );
-  }
-
-  Widget _locationPermissionAlert(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
-      title: Text('Permiso para acceder a la localización'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text('Con el acceso a tu localización se te pueden ofrecer servicios personalizados')
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          child: Text('RECHAZAR'),
-          onPressed: () => _bloc.add( RejectLocationButtonPressed() ),
-        ),
-        FlatButton(
-          child: Text('PERMITIR'),
-          onPressed: () => _bloc.add( AcceptLocationButtonPressed() ),
-        ),
-      ],
-    );
-  }
-
-  Widget _contactsPermissionAlert(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
-      title: Text('Permiso para acceder a tus contactos'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text('Se debe tener acceso a tus contactos para que puedas compartir tus códigos generados')
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          child: Text('RECHAZAR'),
-          onPressed: () => _bloc.add( RejectContactsButtonPressed() ),
-        ),
-        FlatButton(
-          child: Text('PERMITIR'),
-          onPressed: () => _bloc.add( AcceptContactsButtonPressed() ),
-        ),
-      ],
-    );
-  }
-
+  
   Widget _progressIndicatorAlert(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),

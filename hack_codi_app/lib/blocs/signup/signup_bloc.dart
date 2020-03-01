@@ -10,27 +10,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final teCobroClient = TeCobroClient();
 
   @override
-  SignupState get initialState => AskingCameraPermission();
+  SignupState get initialState => AskingEmailPassword();
 
   @override
   Stream<SignupState> mapEventToState(SignupEvent event) async* {
     if(event is RetryButtonPressed) {
-      yield AskingEmailPassword();
-    }
-
-    if((event is AcceptCameraButtonPressed) || (event is RejectCameraButtonPressed) ) {
-      yield AskingImagesPermission();
-    }
-
-    if((event is AcceptImagesButtonPressed) || (event is RejectImagesButtonPressed) ) {
-      yield AskingLocationPermission();
-    }
-
-    if((event is AcceptLocationButtonPressed) || (event is RejectLocationButtonPressed) ) {
-      yield AskingContactsPermission();
-    }
-    
-    if((event is AcceptContactsButtonPressed) || (event is RejectContactsButtonPressed) ) {
       yield AskingEmailPassword();
     }
 

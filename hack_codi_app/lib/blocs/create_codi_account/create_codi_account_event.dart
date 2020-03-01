@@ -12,18 +12,6 @@ class RetryButtonPressed extends CreateCodiAccountEvent {
   String toString() => 'RetryButtonPressed';
 }
 
-class BankChoosen extends CreateCodiAccountEvent {
-  final String bank;
-
-  BankChoosen({@required this.bank});
-
-  @override
-  List<Object> get props => [bank];
-
-  @override
-  String toString() => 'BankChoosen { value: $bank }';
-}
-
 class CreateCodiAccountButtonPressed extends CreateCodiAccountEvent {
   final String phoneNumber;
   final String bankAccountNumber;
