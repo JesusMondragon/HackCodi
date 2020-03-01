@@ -19,23 +19,36 @@ function getParams(email, password) {
 
 module.exports = {
     async create(userId, name, lastname, phoneNumber, provider) {
-        let accountResult = null
         if(provider == 'HSBC') {
-             accountResult = await hsbcClient.create(name, lastname, phoneNumber)
-        } 
+            let accountResult = await hsbcClient.create(name, lastname, phoneNumber)
+            if(!accountResult.account_id) throw ('User not created')
+            console.log(accountResult)
+            let bank_account = await db.collection(`users/${userId}/bank_accounts`).add({
+                account_id: accountResult.account_id,
+                bank: 'HSBC'
+            })
+            
+            return {
+                account_id: accountResult.account_id,
+                bank: 'HSBC'
+            }
 
-        accountResult = await genteraClient.create(name, lastname, phoneNumber)
+        } else {
+            let accountResult = await genteraClient.create(name, lastname, phoneNumber)
 
-        if(!accountResult) throw ('No provider')
+            if(!accountResult) throw ('No provider')
 
-        console.log(accountResult)
+            console.log(accountResult)
 
-        let bank_account = await db.collection(`users/${userId}/bank_accounts`).add({
-            account_id: accountResult.Level2AccountCreationDataResponse.BankAccountContractID
-        })
-        
-        return {
-            account_id: accountResult.Level2AccountCreationDataResponse.BankAccountContractID
+            let bank_account = await db.collection(`users/${userId}/bank_accounts`).add({
+                account_id: accountResult.Level2AccountCreationDataResponse.BankAccountContractID,
+                bank: 'Compartamos Banco'
+            })
+            
+            return {
+                account_id: accountResult.Level2AccountCreationDataResponse.BankAccountContractID,
+                bank: 'Compartamos Banco'
+            }
         }
     },
 
