@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:hack_codi_app/repository/tecobro_client.dart';
+import 'package:hack_codi_app/model/tecobro.dart';
 import './bloc.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   String _email = '';
   String _password = '';
+  final teCobroClient = TeCobroClient();
 
   @override
   SignupState get initialState => AskingCameraPermission();
@@ -37,9 +40,22 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       _email = event.email;
       _password = event.password;
 
-      yield ShowingSignupResult();
-
+      SignInUpRequest request = SignInUpRequest(
+        email: _email,
+        password: _password
+      );
+      print(request.toJson());
       
+      try {
+        SignInUpResponse response = await teCobroClient.signup(request);
+        print(response.toString());
+        
+      } catch (e) {
+        yield SignupError(error: e.toString());
+        return;
+      }
+
+      yield ShowingSignupResult();
     }
 
 

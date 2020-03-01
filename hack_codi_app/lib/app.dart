@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tecobro/pages/create_codi_account.dart';
+import 'package:hack_codi_app/pages/create_codi_account.dart';
 import 'pages/create_bank_account.dart';
 import 'pages/password_reset.dart';
 import 'pages/signin.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tecobro/blocs/signin/signin_bloc.dart';
-import 'package:tecobro/common/botons.dart';
+import 'package:hack_codi_app/blocs/signin/signin_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class Signin extends StatelessWidget {
   final _emailController = TextEditingController();

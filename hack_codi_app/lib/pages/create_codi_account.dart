@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tecobro/blocs/create_codi_account/create_codi_account_bloc.dart';
-import 'package:tecobro/common/botons.dart';
+import 'package:hack_codi_app/blocs/create_codi_account/create_codi_account_bloc.dart';
+import 'package:hack_codi_app/common/botons.dart';
 
 class CreateCodiAccount extends StatelessWidget {
   final _phoneNumberController = TextEditingController();

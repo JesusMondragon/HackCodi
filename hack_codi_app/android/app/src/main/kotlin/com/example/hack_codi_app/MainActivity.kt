@@ -1,4 +1,4 @@
-package com.example.tecobro
+package com.example.hack_codi_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
