@@ -69,6 +69,7 @@ exports.users = functions.https.onRequest((request, response) => {
 });
 
 exports.bank_accounts = functions.https.onRequest((request, response) => {
+    setCors(request, response)
     if(!request.headers.auth) return response.status(403).send()
     let verifyUser = admin.auth().verifyIdToken(request.headers.auth)
         
@@ -80,7 +81,7 @@ exports.bank_accounts = functions.https.onRequest((request, response) => {
                 request.body.name,
                 request.body.lastname,
                 request.body.phone_number,
-                request.body.provider
+                request.body.bank
             ))
             .then((user) => response.status(200).send(user))
 

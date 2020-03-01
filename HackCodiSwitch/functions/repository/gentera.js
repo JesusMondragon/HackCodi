@@ -83,16 +83,16 @@ module.exports = {
 
         let body = getBody(name, lastname, phoneNumber, availableFolio)
         
-        /*const answer = await fetch(emtech_url, params)
+        const answer = await fetch(emtech_url, params)
         const data = await answer.json()
         if (data.error) {
             throw ({
                 code: data.error.code,
                 message: data.error.message
             })
-        }*/
+        }
 
-        let data = {
+        /*let data = {
             MessageHeader: {
                 UUID: "E6FEE872-D102-1EDA-96EA-AFEA205700A1",
                 CreationDateTime: "2020-03-01T00:42:15Z",
@@ -119,7 +119,7 @@ module.exports = {
                 }
             }
         }
-
+*/
         if(data.Log.BusinessDocumentProcessingResultCode != 3) throw('Bad bank service answer')
 
         return data
