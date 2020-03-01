@@ -58,12 +58,25 @@ class CreateCodiAccount extends StatelessWidget {
           keyboardType: TextInputType.number,
         ),
 
+        SizedBox(height: 10),
+
         teCobroBotton(
           title: 'Registro CoDi',
           handler: () => _bloc.add(CreateCodiAccountButtonPressed(
             phoneNumber: _phoneNumberController.text,
             bankAccountNumber: _bankAccountNumberController.text
           ))
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            Text('¿No tienes cuenta CLABE?'),
+            FlatButton(
+              onPressed: () => Navigator.pushNamed(context, '/create_bank_account'),
+              child: Text("Abrir Cuenta")
+            )
+          ],
         ),
       ],
     );
