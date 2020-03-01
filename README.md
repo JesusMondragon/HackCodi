@@ -22,7 +22,7 @@ La plataforma se conecta a 4 API's:
 - a TeCobro, generar un cargo a la tarjeta (asociada a la cuenta bancaria del usuario) para cobrar la licencia de uso
 
 # Las herramientas utilizadas son:
-Plataforma: Montada en Google Firebase utilizando la herramienta "functions" que provee para exponer los endpoints de la API utilizando javascript como lenguaje y nodejs para el desarrollo asi como firebase tools para el despliegue asi como Visual Studio Code IDE. La documentación del API se encuentra en Swagger en https://app.swaggerhub.com/apis-docs/jdashel/HackCodi/1.0.0
+Plataforma: Montada en Google Firebase utilizando la herramienta "functions" que provee para exponer los endpoints de la API utilizando javascript como lenguaje y nodejs para el desarrollo asi como firebase tools para el despliegue asi como Visual Studio Code IDE. La documentación del API se encuentra en Swagger en https://app.swaggerhub.com/apis-docs/jdashel/HackCodi
 
 Aplicación móvil: Se desarrolló para iOS y Android utilizando la herramienta de desarrollo creada por Google llamada Flutter debido a que nos permite el desarrollo multiplataforma y genera un compilado nativo para ambas plataformas con la misma base de desarrollo utilizando el lenguaje Dart y Visual Studio Code como IDE asi como el patrón Bloc para la arquitectura.
 
