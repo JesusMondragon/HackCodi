@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hack_codi_app/blocs/create_bank_account/create_bank_account_bloc.dart';
-import 'package:hack_codi_app/common/botons.dart';
+import 'package:tecobro/blocs/create_bank_account/create_bank_account_bloc.dart';
+import 'package:tecobro/common/botons.dart';
 
 class CreateBankAccount extends StatelessWidget {
   final _nameController = TextEditingController();
