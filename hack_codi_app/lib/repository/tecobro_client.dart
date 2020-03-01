@@ -33,7 +33,7 @@ class TeCobroClient {
     return SignInUpResponse.fromJson(responseJson);
   }
 
-  Future<SignInUpRequest> signin(SignInUpRequest request) async {
+  Future<SignInUpResponse> signin(SignInUpRequest request) async {
     http.Response responseRaw;
 
     try {
@@ -52,17 +52,17 @@ class TeCobroClient {
       throw json.decode(responseRaw.body);
     }
 
-    return SignInUpRequest.fromJson(responseJson);
+    return SignInUpResponse.fromJson(responseJson);
   }
 
-  Future<CreateCodiAccountResponse> createCodiAccount(CreateCodiAccountRequest request) async {
+  Future<CreateCodiAccountResponse> createCodiAccount(CreateCodiAccountRequest request, String token) async {
     http.Response responseRaw;
     
     try {
       responseRaw = await httpClient.post(
         Uri.parse("$baseUrl/codi_accounts"),
         body: jsonEncode(request.toJson()),
-        headers: {"Content-type": "application/json"}
+        headers: {"auth": token}
       );
     } catch (error) {
       throw 'Connection refused';

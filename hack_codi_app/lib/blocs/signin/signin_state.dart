@@ -9,6 +9,7 @@ abstract class SigninState extends Equatable {
 
 class AskingEmailPassword extends SigninState { }
 
+class ShowingSigninResult extends SigninState { }
 
 class SigningIn extends SigninState { }
 

@@ -50,7 +50,8 @@ class Signin extends StatelessWidget {
                   title: 'Continuar',
                   handler: () => _bloc.add(SigninButtonPressed(
                     email: _emailController.text,
-                    password: _passwordController.text
+                    password: _passwordController.text,
+                    context: context
                   ))
                 ),
 
@@ -70,7 +71,7 @@ class Signin extends StatelessWidget {
           }
 
           if(state is SigningIn) {
-              return Center(child: CircularProgressIndicator());
+              return _progressIndicatorAlert(context);
           }
 
           if(state is SigninError) {
@@ -90,4 +91,18 @@ class Signin extends StatelessWidget {
       ),
     );
   }
+
+  Widget _progressIndicatorAlert(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0) ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CircularProgressIndicator(),
+          Text('Ingresando...')
+        ],
+      ),
+    );
+  }
+  
 }

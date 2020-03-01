@@ -7,6 +7,9 @@ class CreateCodiAccount extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
   final CreateCodiAccountBloc _bloc = CreateCodiAccountBloc();
+  final String token;
+
+  CreateCodiAccount({Key key, @required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,20 +76,23 @@ class CreateCodiAccount extends StatelessWidget {
           title: 'Registro CoDi',
           handler: () => _bloc.add(CreateCodiAccountButtonPressed(
             phoneNumber: _phoneNumberController.text,
-            bankAccountNumber: _bankAccountNumberController.text
+            bankAccountNumber: _bankAccountNumberController.text,
+            token: token,
           ))
         ),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            Text('¿No tienes cuenta CLABE?'),
-            FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/create_bank_account'),
-              child: Text("Abrir Cuenta")
-            )
-          ],
+        SizedBox(height: 50),
+
+
+        teCobroBotton(
+          title: 'Crear Cuenta Bancaria',
+          handler: () => Navigator.pushNamed(context, '/create_bank_account')
         ),
+        
+        Center(
+          child: Text('¿No tienes Cuenta Clabe?')
+        )
+
       ],
     );
   }

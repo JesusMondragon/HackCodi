@@ -32,7 +32,7 @@ class App extends StatelessWidget {
         '/signin': (context) => Signin(),
         '/password_reset': (context) => PasswordReset(),
         '/signup': (context) => Signup(),
-        '/create_codi_account': (context) => CreateCodiAccount(),
+        '/create_codi_account': (context) => CreateCodiAccount(token: '',),
         '/create_bank_account':(context) => CreateBankAccount(),
         '/payments':(context) => Payments(),
       },

@@ -15,12 +15,19 @@ class RetryButtonPressed extends SigninEvent {
 class SigninButtonPressed extends SigninEvent {
   final String email;
   final String password;
+  final BuildContext context;
 
-  SigninButtonPressed({@required this.email, @required this.password});
+  SigninButtonPressed(
+    {
+      @required this.email,
+      @required this.password,
+      @required this.context
+    }
+  );
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [email, password, context];
 
   @override
-  String toString() => 'SigninButtonPressed { email: $email, password: $password }';
+  String toString() => 'SigninButtonPressed { email: $email, password: $password, contex: $context }';
 }

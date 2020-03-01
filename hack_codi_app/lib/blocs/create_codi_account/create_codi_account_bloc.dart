@@ -14,6 +14,7 @@ part 'create_codi_account_state.dart';
 class CreateCodiAccountBloc extends Bloc<CreateCodiAccountEvent, CreateCodiAccountState> {
   String _phoneNumber = '';
   String _clabe = '';
+  String _token;
   final teCobroClient = TeCobroClient();
   
   @override
@@ -30,6 +31,7 @@ class CreateCodiAccountBloc extends Bloc<CreateCodiAccountEvent, CreateCodiAccou
 
       _phoneNumber = event.phoneNumber;
       _clabe = event.bankAccountNumber;
+      _token = event.token;
 
       CreateCodiAccountRequest request = CreateCodiAccountRequest(
         phoneNumber: _phoneNumber,
@@ -38,7 +40,7 @@ class CreateCodiAccountBloc extends Bloc<CreateCodiAccountEvent, CreateCodiAccou
       print(request.toJson());
       
       try {
-        CreateCodiAccountResponse response = await teCobroClient.createCodiAccount(request);
+        CreateCodiAccountResponse response = await teCobroClient.createCodiAccount(request, _token);
         print(response.toString());
         
       } catch (e) {
