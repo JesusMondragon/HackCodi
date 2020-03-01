@@ -266,7 +266,7 @@ class Signup extends StatelessWidget {
           Icon( Icons.check, color: Colors.blue, size: 80.0, ),
           FlatButton(
             child: Text('ACEPTAR'),
-            onPressed: () => Navigator.pushNamed(context, '/create_account'),
+            onPressed: () => Navigator.pushNamed(context, '/create_codi_account'),
           ),
         ],
       ),

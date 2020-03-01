@@ -25,23 +25,19 @@ class BankChoosen extends CreateCodiAccountEvent {
 }
 
 class CreateCodiAccountButtonPressed extends CreateCodiAccountEvent {
-  final String bank;
-  final String name;
   final String phoneNumber;
-  final String address;
+  final String bankAccountNumber;
 
   CreateCodiAccountButtonPressed(
     {
-      @required this.bank,
-      @required this.name,
       @required this.phoneNumber,
-      @required this.address
+      @required this.bankAccountNumber
     }
   );
 
   @override
-  List<Object> get props => [bank, name, phoneNumber, address];
+  List<Object> get props => [phoneNumber, bankAccountNumber];
 
   @override
-  String toString() => 'CreateCodiAccountButtonPressed { bank: $bank, name: $name, phone number: $phoneNumber, address: $address }';
+  String toString() => 'CreateCodiAccountButtonPressed { phoneNumber: $phoneNumber, Bank Account Number: $bankAccountNumber }';
 }

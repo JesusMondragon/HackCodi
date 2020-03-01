@@ -8,15 +8,15 @@ part 'create_bank_account_event.dart';
 part 'create_bank_account_state.dart';
 
 
-class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
+class CreateBankAccountBloc extends Bloc<CreateBankAccountEvent, CreateBankAccountState> {
   
   @override
-  CreateAccountState get initialState => AskingAccountInformation();
+  CreateBankAccountState get initialState => AskingBankAccountInformation();
 
   @override
-  Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
+  Stream<CreateBankAccountState> mapEventToState(CreateBankAccountEvent event) async* {
     if(event is RetryButtonPressed) {
-      yield AskingAccountInformation();
+      yield AskingBankAccountInformation();
     }
 
     if(event is BankChoosen) {
@@ -24,8 +24,8 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
 
     }
 
-    if(event is CreateAccountButtonPressed) {
-      yield CreatingAccount();
+    if(event is CreateBankAccountButtonPressed) {
+      yield CreatingBankAccount();
 
     }
 

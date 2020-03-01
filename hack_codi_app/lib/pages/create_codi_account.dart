@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/create_codi_account/create_codi_account_bloc.dart';
 
 class CreateCodiAccount extends StatelessWidget {
-  final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _bankAccountNumberController = TextEditingController();
   final CreateCodiAccountBloc _bloc = CreateCodiAccountBloc();
+  final _buttonColor = Color(0xFF5130bb);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CreateCodiAccount extends StatelessWidget {
         bloc: _bloc,
         builder: (context, state) {
           if(state is AskingCodiAccountInformation) {
-            return _accountInformationForm(context, 'Elijir Banco');
+            return _accountInformationForm(context);
           }
 
           if(state is CreateCodiAccountError) {
@@ -37,40 +37,38 @@ class CreateCodiAccount extends StatelessWidget {
     );
   }
 
-  Widget _accountInformationForm(BuildContext context, String bank) {
+  Widget _accountInformationForm(BuildContext context) {
     return Column(
       children: <Widget>[
-        TextField(
-          decoration: InputDecoration(labelText: 'Nombre'),
-          controller: _nameController,
-          autocorrect: false,
-          enableSuggestions: false,
-          enableInteractiveSelection: false,
-        ),
-
         TextField(
           decoration: InputDecoration(labelText: 'Celular'),
           controller: _phoneNumberController,
           autocorrect: false,
           enableSuggestions: false,
           enableInteractiveSelection: false,
+          keyboardType: TextInputType.phone,
         ),
 
         TextField(
-          decoration: InputDecoration(labelText: 'Dirección'),
-          controller: _addressController,
+          decoration: InputDecoration(labelText: 'Cuenta Clabe Beneficiaría'),
+          controller: _bankAccountNumberController,
           autocorrect: false,
           enableSuggestions: false,
           enableInteractiveSelection: false,
+          keyboardType: TextInputType.number,
         ),
 
         RaisedButton(
-          child: Text('Crear Cuenta'),
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: _buttonColor, width: 2.0)
+          ),
+          color: Colors.white,
+          textColor: _buttonColor,
+          child: Text('Registro CoDi'),
           onPressed: () => _bloc.add(CreateCodiAccountButtonPressed(
-            bank: bank,
-            name: _nameController.text,
             phoneNumber: _phoneNumberController.text,
-            address: _addressController.text
+            bankAccountNumber: _bankAccountNumberController.text
           )),
         ),
       ],

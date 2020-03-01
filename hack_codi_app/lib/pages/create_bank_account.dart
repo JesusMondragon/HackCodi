@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/create_bank_account/create_bank_account_bloc.dart';
 
-class CreateAccount extends StatelessWidget {
+class CreateBankAccount extends StatelessWidget {
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _addressController = TextEditingController();
-  final CreateAccountBloc _bloc = CreateAccountBloc();
+  final CreateBankAccountBloc _bloc = CreateBankAccountBloc();
 
   final List<String> _banks = ['Elijir Banco', 'Compartamos Banco', 'HSBC'];
 
@@ -14,10 +14,10 @@ class CreateAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Apertura de Cuenta"),),
-      body: BlocBuilder<CreateAccountBloc, CreateAccountState>(
+      body: BlocBuilder<CreateBankAccountBloc, CreateBankAccountState>(
         bloc: _bloc,
         builder: (context, state) {
-          if(state is AskingAccountInformation) {
+          if(state is AskingBankAccountInformation) {
             return _accountInformationForm(context, 'Elijir Banco');
           }
 
@@ -25,7 +25,7 @@ class CreateAccount extends StatelessWidget {
             return _accountInformationForm(context, state.bank);
           }
 
-          if(state is CreateAccountError) {
+          if(state is CreateBankAccountError) {
             return Column(
               children: <Widget>[
                 Text(state.error),
@@ -93,7 +93,7 @@ class CreateAccount extends StatelessWidget {
 
         RaisedButton(
           child: Text('Crear Cuenta'),
-          onPressed: () => _bloc.add(CreateAccountButtonPressed(
+          onPressed: () => _bloc.add(CreateBankAccountButtonPressed(
             bank: bank,
             name: _nameController.text,
             phoneNumber: _phoneNumberController.text,

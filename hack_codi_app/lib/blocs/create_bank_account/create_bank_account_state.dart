@@ -1,17 +1,17 @@
 part of 'create_bank_account_bloc.dart';
 
-abstract class CreateAccountState extends Equatable {
-  const CreateAccountState();
+abstract class CreateBankAccountState extends Equatable {
+  const CreateBankAccountState();
 
   @override
   List<Object> get props => [];
 }
 
-class AskingAccountInformation extends CreateAccountState { }
+class AskingBankAccountInformation extends CreateBankAccountState { }
 
-class CreatingAccount extends CreateAccountState { }
+class CreatingBankAccount extends CreateBankAccountState { }
 
-class ChoosingBank extends CreateAccountState {
+class ChoosingBank extends CreateBankAccountState {
   final String bank;
 
   const ChoosingBank({@required this.bank});
@@ -23,15 +23,15 @@ class ChoosingBank extends CreateAccountState {
   String toString() => 'ChoosingBank { choosenBank: $bank}';
 }
 
-class CreateAccountError extends CreateAccountState {
+class CreateBankAccountError extends CreateBankAccountState {
   final String error;
 
-  const CreateAccountError({@required this.error});
+  const CreateBankAccountError({@required this.error});
 
   @override
   List<Object> get props => [error];
 
   @override
-  String toString() => 'CreateAccountError { error: $error }';
+  String toString() => 'CreateBankAccountError { error: $error }';
 }
 

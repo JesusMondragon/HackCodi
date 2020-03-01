@@ -1,18 +1,18 @@
 part of 'create_bank_account_bloc.dart';
 
-abstract class CreateAccountEvent extends Equatable {
-  const CreateAccountEvent();
+abstract class CreateBankAccountEvent extends Equatable {
+  const CreateBankAccountEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class RetryButtonPressed extends CreateAccountEvent {
+class RetryButtonPressed extends CreateBankAccountEvent {
   @override
   String toString() => 'RetryButtonPressed';
 }
 
-class BankChoosen extends CreateAccountEvent {
+class BankChoosen extends CreateBankAccountEvent {
   final String bank;
 
   BankChoosen({@required this.bank});
@@ -24,13 +24,13 @@ class BankChoosen extends CreateAccountEvent {
   String toString() => 'BankChoosen { value: $bank }';
 }
 
-class CreateAccountButtonPressed extends CreateAccountEvent {
+class CreateBankAccountButtonPressed extends CreateBankAccountEvent {
   final String bank;
   final String name;
   final String phoneNumber;
   final String address;
 
-  CreateAccountButtonPressed(
+  CreateBankAccountButtonPressed(
     {
       @required this.bank,
       @required this.name,
@@ -43,5 +43,5 @@ class CreateAccountButtonPressed extends CreateAccountEvent {
   List<Object> get props => [bank, name, phoneNumber, address];
 
   @override
-  String toString() => 'CreateAccountButtonPressed { bank: $bank, name: $name, phone number: $phoneNumber, address: $address }';
+  String toString() => 'CreateBankAccountButtonPressed { bank: $bank, name: $name, phone number: $phoneNumber, address: $address }';
 }

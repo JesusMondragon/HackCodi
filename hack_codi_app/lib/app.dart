@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hack_codi_app/pages/create_codi_account.dart';
 import 'pages/create_bank_account.dart';
 import 'pages/password_reset.dart';
 import 'pages/signin.dart';
@@ -30,7 +31,8 @@ class App extends StatelessWidget {
         '/signin': (context) => Signin(),
         '/password_reset': (context) => PasswordReset(),
         '/signup': (context) => Signup(),
-        '/create_account':(context) => CreateAccount(),
+        '/create_codi_account': (context) => CreateCodiAccount(),
+        '/create_bank_account':(context) => CreateBankAccount(),
       },
       theme: ThemeData(
         primarySwatch: MaterialColor(0xFF5130bb, color)
