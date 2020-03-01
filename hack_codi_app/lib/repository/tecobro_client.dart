@@ -57,7 +57,7 @@ class TeCobroClient {
 
   Future<CreateCodiAccountResponse> createCodiAccount(CreateCodiAccountRequest request, String token) async {
     http.Response responseRaw;
-    
+
     try {
       responseRaw = await httpClient.post(
         Uri.parse("$baseUrl/codi_accounts"),
@@ -82,9 +82,9 @@ class TeCobroClient {
 
     try {
       responseRaw = await httpClient.post(
-        Uri.parse("$baseUrl/users/signin"),
+        Uri.parse("$baseUrl/bank_accounts"),
         body: jsonEncode(request.toJson()),
-        headers: {"auth": token}
+        headers: {"auth": token, "Content-type": "application/json"}
       );
     } catch (error) {
       throw 'Connection refused';

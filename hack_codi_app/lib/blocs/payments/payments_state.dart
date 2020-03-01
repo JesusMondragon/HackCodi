@@ -7,4 +7,4 @@ abstract class PaymentsState extends Equatable {
   List<Object> get props => [];
 }
 
-class AskingEmail extends PaymentsState { }
+class AskingAmount extends PaymentsState { }

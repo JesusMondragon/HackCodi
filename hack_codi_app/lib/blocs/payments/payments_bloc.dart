@@ -8,7 +8,7 @@ part 'payments_state.dart';
 class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
 
   @override
-  PaymentsState get initialState => AskingEmail();
+  PaymentsState get initialState => AskingAmount();
 
   @override
   Stream<PaymentsState> mapEventToState(PaymentsEvent event) async* {

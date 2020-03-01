@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_codi_app/blocs/create_codi_account/create_codi_account_bloc.dart';
 import 'package:hack_codi_app/common/botons.dart';
 
+import 'create_bank_account.dart';
+
 class CreateCodiAccount extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
@@ -26,10 +28,11 @@ class CreateCodiAccount extends StatelessWidget {
             return _progressIndicatorAlert(context);
           }
 
-          if(state is ShowingResult)
-          {
-            _codiAccountResultAlert(context);
-          }
+          // if(state is ShowingCodiResult)
+          // {
+          //   Text("Bien");
+          //   // _codiAccountResultAlert(context);
+          // }
 
           if(state is CreateCodiAccountError) {
             return Column(
@@ -74,11 +77,12 @@ class CreateCodiAccount extends StatelessWidget {
 
         teCobroBotton(
           title: 'Registro CoDi',
-          handler: () => _bloc.add(CreateCodiAccountButtonPressed(
-            phoneNumber: _phoneNumberController.text,
-            bankAccountNumber: _bankAccountNumberController.text,
-            token: token,
-          ))
+          handler: () => {}
+          // () => _bloc.add(CreateCodiAccountButtonPressed(
+          //   phoneNumber: _phoneNumberController.text,
+          //   bankAccountNumber: _bankAccountNumberController.text,
+          //   token: token,
+          // ))
         ),
 
         SizedBox(height: 50),
@@ -89,7 +93,7 @@ class CreateCodiAccount extends StatelessWidget {
           handler: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreateCodiAccount(token: token)
+              builder: (context) => CreateBankAccount(token: token)
             )
           ),
         ),

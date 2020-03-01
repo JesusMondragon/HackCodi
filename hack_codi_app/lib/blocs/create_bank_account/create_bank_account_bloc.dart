@@ -13,7 +13,7 @@ part 'create_bank_account_state.dart';
 
 class CreateBankAccountBloc extends Bloc<CreateBankAccountEvent, CreateBankAccountState> {
   String _name;
-  String _address;
+  String _lastName;
   String _bank;
   String _phoneNumber;
   String _token;
@@ -37,15 +37,15 @@ class CreateBankAccountBloc extends Bloc<CreateBankAccountEvent, CreateBankAccou
       yield CreatingBankAccount();
 
       _name = event.name;
+      _lastName = event.lastName;
       _phoneNumber = event.phoneNumber;
-      _address = event.address;
       _bank = event.bank;
       _token = event.token;
 
       CreateBankAccountRequest request = CreateBankAccountRequest(
         name: _name,
+        lastName: _lastName,
         phoneNumber: _phoneNumber,
-        address: _address,
         bank: _bank
       );
       print(request.toJson());

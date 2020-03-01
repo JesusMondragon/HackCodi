@@ -7,28 +7,28 @@ String createBankAccountRequestToJson(CreateBankAccountRequest data) => json.enc
 
 class CreateBankAccountRequest {
     String name;
+    String lastName;
     String phoneNumber;
-    String address;
     String bank;
 
     CreateBankAccountRequest({
         @required this.name,
         @required this.phoneNumber,
-        @required this.address,
+        @required this.lastName,
         @required this.bank,
     });
 
     factory CreateBankAccountRequest.fromJson(Map<String, dynamic> json) => CreateBankAccountRequest(
         name: json["name"],
         phoneNumber: json["phone_number"],
-        address: json["address"],
+        lastName: json["lastname"],
         bank: json["bank"],
     );
 
     Map<String, dynamic> toJson() => {
         "name": name,
         "phone_number": phoneNumber,
-        "address": address,
+        "lastname": lastName,
         "bank": bank,
     };
 }

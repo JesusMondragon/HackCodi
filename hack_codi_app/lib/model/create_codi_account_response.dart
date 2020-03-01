@@ -7,17 +7,17 @@ CreateCodiAccountResponse createCodiAccountResponseFromJson(String str) => Creat
 String createCodiAccountResponseToJson(CreateCodiAccountResponse data) => json.encode(data.toJson());
 
 class CreateCodiAccountResponse {
-    String codiID;
+    String id;
 
     CreateCodiAccountResponse({
-        @required this.codiID
+        @required this.id,
     });
 
     factory CreateCodiAccountResponse.fromJson(Map<String, dynamic> json) => CreateCodiAccountResponse(
-        codiID: json["id"]
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": codiID
+        "id": id,
     };
 }

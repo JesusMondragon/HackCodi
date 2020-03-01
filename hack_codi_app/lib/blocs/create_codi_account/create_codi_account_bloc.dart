@@ -33,22 +33,22 @@ class CreateCodiAccountBloc extends Bloc<CreateCodiAccountEvent, CreateCodiAccou
       _clabe = event.bankAccountNumber;
       _token = event.token;
 
-      CreateCodiAccountRequest request = CreateCodiAccountRequest(
-        phoneNumber: _phoneNumber,
-        bankAccountNumber: _clabe
-      );
-      print(request.toJson());
+      // CreateCodiAccountRequest request = CreateCodiAccountRequest(
+      //   phoneNumber: _phoneNumber,
+      //   bankAccountNumber: _clabe
+      // );
+      // print(request.toJson());
       
-      try {
-        CreateCodiAccountResponse response = await teCobroClient.createCodiAccount(request, _token);
-        print(response.toString());
+      // try {
+      //   CreateCodiAccountResponse response = await teCobroClient.createCodiAccount(request, _token);
+      //   print(response.toString());
         
-      } catch (e) {
-        yield CreateCodiAccountError(error: e.toString());
-        return;
-      }
+      // } catch (e) {
+      //   yield CreateCodiAccountError(error: e.toString());
+      //   return;
+      // }
 
-      yield ShowingResult();
+      yield ShowingCodiResult();
     }
 
   }

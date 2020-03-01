@@ -27,23 +27,23 @@ class BankChoosen extends CreateBankAccountEvent {
 class CreateBankAccountButtonPressed extends CreateBankAccountEvent {
   final String bank;
   final String name;
+  final String lastName;
   final String phoneNumber;
-  final String address;
   final String token;
 
   CreateBankAccountButtonPressed(
     {
       @required this.bank,
       @required this.name,
+      @required this.lastName,
       @required this.phoneNumber,
-      @required this.address,
       @required this.token
     }
   );
 
   @override
-  List<Object> get props => [bank, name, phoneNumber, address, token];
+  List<Object> get props => [bank, name, lastName, phoneNumber, token];
 
   @override
-  String toString() => 'CreateBankAccountButtonPressed { bank: $bank, name: $name, phone number: $phoneNumber, address: $address }';
+  String toString() => 'CreateBankAccountButtonPressed { bank: $bank, name: $name, lastName: $lastName, phone number: $phoneNumber }';
 }
